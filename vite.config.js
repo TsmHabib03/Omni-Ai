@@ -22,13 +22,26 @@ function responsiveEntry() {
 }
 
 export default defineConfig(({ mode }) => {
+  const publicEnv = { ...loadEnv(mode, process.cwd(), 'VITE_'), ...process.env };
+  const unsafeNames = Object.keys(publicEnv).filter(name => name.startsWith('VITE_') && /(?:API_KEY|TOKEN|SECRET|PASSWORD)$/.test(name) && publicEnv[name]);
+  if (unsafeNames.length) throw new Error(`Remove server credentials from public Vite variables: ${unsafeNames.join(', ')}. Use server-only names.`);
   const local = loadEnv(mode, process.cwd(), 'GOOGLE_CLIENT_ID');
   // Expose only the public OAuth audience. Provider credentials stay server-side.
   const clientId = process.env.VITE_GOOGLE_CLIENT_ID || process.env.GOOGLE_CLIENT_ID || local.GOOGLE_CLIENT_ID || '';
   return {
   define: { 'import.meta.env.VITE_GOOGLE_CLIENT_ID': JSON.stringify(clientId) },
   plugins: [tailwindcss(), viteSingleFile(), responsiveEntry()],
-  server: { host: '127.0.0.1', port: 5173, strictPort: true, proxy: { '/api': { target: `http://127.0.0.1:${process.env.API_PORT || 8787}`, changeOrigin: false, xfwd: true } } },
+  server: {
+    host: '127.0.0.1', port: 5173, strictPort: true,
+    // Git ignore rules do not protect files from Vite's development file server.
+    // Keep Vite's default exclusions and block local Worker credentials/backups.
+    fs: { strict: true, deny: [
+      '.env*', '.dev.vars*', '*.{crt,pem,key,p12,pfx}', '**/.git/**',
+      '**/.wrangler/**', '**/.aws/**', 'credentials*.json', '*service-account*.json',
+      '*.local', '*.bak', '*.backup',
+    ] },
+    proxy: { '/api': { target: `http://127.0.0.1:${process.env.API_PORT || 8787}`, changeOrigin: false, xfwd: true } },
+  },
   preview: { proxy: { '/api': { target: `http://127.0.0.1:${process.env.API_PORT || 8787}`, changeOrigin: false, xfwd: true } } },
   build: { target: 'es2020', cssCodeSplit: false },
 }; });

@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { parseEnv } from 'node:util';
 import { spawnSync } from 'node:child_process';
 import assert from 'node:assert/strict';
+import { credentialLabels, auditGit } from './secret-detection.mjs';
 
 const root = fileURLToPath(new URL('../', import.meta.url));
 // Use isolated Git metadata to test Git's actual ignore rules without creating
@@ -16,13 +17,14 @@ const init = git(['init', '--quiet']);
 assert.equal(init.status, 0, 'Temporary ignore-check Git metadata must initialize');
 
 const known = [];
-for (const file of ['.env.local', 'omni-rate-limit/.dev.vars']) {
-  if (!existsSync(resolve(root, file))) continue;
-  const vars = parseEnv(readFileSync(resolve(root, file), 'utf8'));
+const envFiles = [...readdirSync(root).filter(name => /^\.env(?:\.|$)/.test(name) && name !== '.env.oauth.local'), ...readdirSync(resolve(root, 'omni-rate-limit')).filter(name => /^\.dev.vars(?:\.|$)/.test(name)).map(name => `omni-rate-limit/${name}`)];
+for (const vars of [process.env, ...envFiles.map(file => parseEnv(readFileSync(resolve(root, file), 'utf8')))]) {
   for (const [name, value] of Object.entries(vars)) {
-    if (/(?:API_KEY|TOKEN|SECRET|PASSWORD)$/.test(name) && value.length >= 16) known.push({ name, value });
+    if (/(?:API_KEY|TOKEN|SECRET|PASSWORD)$/.test(name) && value?.length >= 16 && !known.some(entry => entry.name === name && entry.value === value)) known.push({ name, value });
   }
 }
+// Use only project-local Git metadata; never scan an unrelated parent repo.
+const repository = existsSync(resolve(root, '.git')) ? auditGit(root, known) : { tracked: new Set(), findings: [], scannedBlobs: 0 };
 
 const skip = new Set(['node_modules', '.git']);
 const binary = /\.(?:png|jpe?g|webp|gif|ico|woff2?|ttf|eot|wasm|exe|dll|sqlite|db|zip|gz)$/i;
@@ -58,17 +60,14 @@ for (const path of paths) {
     throw error;
   }
   scanned++;
-  const labels = new Set();
-  for (const credential of known) if (content.includes(credential.value)) labels.add(credential.name);
-  if (/\b(?:gsk_[A-Za-z0-9]{20,}|sk-(?:proj-)?[A-Za-z0-9_-]{24,}|AIza[\w-]{30,}|gh[pousr]_[\w]{30,}|github_pat_[\w]{30,}|AKIA[0-9A-Z]{16})\b/.test(content)) labels.add('credential pattern');
-  if (/-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/.test(content)) labels.add('private key');
-  if (/\b\d+-[a-z0-9]+\.apps\.googleusercontent\.com\b/.test(content)) labels.add('public OAuth client ID');
-  if (labels.size) findings.push({ path, labels: [...labels], ignored: ignored.has(path) });
+  const artifact = path.startsWith('dist/') || path === 'browser-extension/content.js';
+  const labels = credentialLabels(content, known, { includePublicOAuth: !artifact });
+  if (labels.length) findings.push({ path, labels, ignored: ignored.has(path), tracked: repository.tracked.has(path), browserArtifact: artifact });
 }
 
 for (const path of required) assert.ok(ignored.has(path), `${path} must be ignored`);
-const leaks = findings.filter(finding => !finding.ignored);
-const report = { scannedTextFiles: scanned, sourceControlCandidates: candidates, exactCredentialValuesChecked: known.length, findings, sourceControlLeaks: leaks.length, unreadableIgnoredFiles, dependencyDirectoriesExcluded: true };
+const leaks = findings.filter(finding => !finding.ignored || finding.tracked || finding.browserArtifact);
+const report = { scannedTextFiles: scanned, sourceControlCandidates: candidates, scannedGitBlobs: repository.scannedBlobs, exactCredentialValuesChecked: known.length, findings, gitFindings: repository.findings, sourceControlLeaks: leaks.filter(finding => !finding.browserArtifact || !finding.ignored).length + repository.findings.length, browserArtifactLeaks: leaks.filter(finding => finding.browserArtifact).length, unreadableIgnoredFiles, dependencyDirectoriesExcluded: true };
 writeFileSync(resolve(root, 'test-results/security-scan.json'), JSON.stringify(report, null, 2) + '\n');
 console.log(JSON.stringify(report, null, 2));
-if (leaks.length) process.exitCode = 1;
+if (leaks.length || repository.findings.length) process.exitCode = 1;

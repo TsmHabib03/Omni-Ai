@@ -13,6 +13,10 @@ const build = spawnSync(process.execPath, [resolve(appRoot, 'node_modules/vite/b
   cwd: appRoot, stdio: 'inherit', env: { ...process.env, VITE_REQUIRE_AUTH: 'true', VITE_GOOGLE_CLIENT_ID: clientId, VITE_API_BASE_URL: '' },
 });
 if (build.status !== 0) process.exit(build.status || 1);
+// The deployment helper invokes Vite directly, so run the artifact/index/history
+// secret check explicitly before uploading any browser assets.
+const scan = spawnSync(process.execPath, [resolve(appRoot, 'scripts/security-scan.mjs')], { cwd: appRoot, stdio: 'inherit' });
+if (scan.status !== 0) process.exit(scan.status || 1);
 // Publish OAuth configuration with the same Worker version. A separate secret
 // put cannot replace the plain-text binding from older deployments.
 // --secrets-file preserves omitted provider secrets and replaces this binding.

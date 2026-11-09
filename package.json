@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "start": "node server.mjs",
-    "test": "node --test tests/environmental-impact.test.mjs && node verify.mjs && node verify-api.mjs && node verify-auth.mjs",
+    "test": "node --test tests/environmental-impact.test.mjs tests/private-files.test.mjs tests/secret-audit.test.mjs tests/local-secrets.test.mjs && node verify.mjs && node verify-api.mjs && node verify-auth.mjs",
     "test:carbon": "playwright test carbon-warning",
     "build:extension": "node scripts/build-extension.mjs",
     "test:worker": "npm --prefix omni-rate-limit test",
@@ -16,7 +16,9 @@
     "deploy:cloudflare": "npm --prefix omni-rate-limit run deploy",
     "test:layout": "playwright test cinematic-layout",
     "test:security-browser": "playwright test --config playwright.security.config.js",
-    "audit:secrets": "node scripts/security-scan.mjs"
+    "audit:secrets": "node scripts/security-scan.mjs",
+    "postbuild": "node scripts/security-scan.mjs",
+    "security:hooks": "git config --local core.hooksPath .githooks"
   },
   "engines": {
     "node": ">=22.12.0"

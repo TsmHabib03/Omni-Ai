@@ -95,7 +95,11 @@ Before committing, ensure the project `.gitignore` contains:
 !.env.example
 ```
 
-Run `npm run audit:secrets` before publication. It scans exact local credential values and credential patterns, and verifies Git ignore behavior using isolated temporary metadata without staging files. In an existing repository, also use `git check-ignore -- .env.local omni-rate-limit/.dev.vars`; ignore rules do not remove already tracked files. On this Windows workspace, both local key files are restricted to the current user's account. Credentials shared previously must be rotated in their provider dashboards, then replaced locally and synced privately.
+Run `npm run audit:secrets` before publication. It scans known local credential values and recognizable patterns in working files, the actual Git index, and reachable branch/tag history. It also checks generated browser assets even when they are Git-ignored; public Google OAuth IDs are permitted in those assets. Ignore rules cannot hide already tracked secrets from this scan. Findings show paths and labels, never key values.
+
+Run `npm run security:hooks` once per checkout to enable the local pre-commit and pre-push guards. Frontend builds and the Cloudflare deployment helper run the scan before publication; GitHub Actions runs it again with complete repository history. These checks detect known values locally and recognizable patterns in CI, and cannot detect every unknown credential format. Git hooks can be bypassed, so they complement the CI check.
+
+Vite explicitly denies `.env*`, `.dev.vars*`, key files, credential exports, backups, and private Worker state through its file server, including `?raw` and `/@fs/` URLs. Git ignore rules alone do not protect development HTTP routes. Restart any existing development server after pulling this fix. On this Windows workspace, both local key files are restricted to the current user's account. Rotate any previously shared or accessed keys in their provider dashboards, replace them privately in `.env.local`, and run `npm --prefix omni-rate-limit run secrets:sync`. Update the local Worker `.dev.vars` privately too; it is a separate copy.
 
 ## React generation hooks
 

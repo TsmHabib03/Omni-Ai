@@ -1,8 +1,9 @@
-import { existsSync, writeFileSync, chmodSync } from 'node:fs';
+import { existsSync, openSync, writeFileSync, closeSync, unlinkSync } from 'node:fs';
 import { loadEnvFile } from 'node:process';
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { userInfo } from 'node:os';
 
 const workerRoot = fileURLToPath(new URL('../', import.meta.url));
 const file = resolve(workerRoot, '../.env.local');
@@ -12,8 +13,21 @@ if (!keys.GROQ_API_KEY || !keys.PIX_ROUTER_API_KEY) throw new Error('Add both se
 if (process.argv.includes('--local')) {
   const target = resolve(workerRoot, '.dev.vars');
   if (existsSync(target)) throw new Error('.dev.vars already exists. Update it privately rather than overwrite it.');
-  writeFileSync(target, Object.entries(keys).map(([name, value]) => `${name}=${JSON.stringify(value)}`).join('\n') + '\n', { mode: 0o600 });
-  if (process.platform !== 'win32') chmodSync(target, 0o600);
+  // Create an empty exclusive file, restrict its ACL, then write through the
+  // original descriptor. POSIX mode alone does not protect Windows secrets.
+  const descriptor = openSync(target, 'wx', 0o600);
+  let secured = false;
+  try {
+    if (process.platform === 'win32') {
+      const acl = spawnSync('icacls.exe', [target, '/inheritance:r', '/grant:r', `${userInfo().username}:F`], { stdio: 'pipe' });
+      if (acl.error || acl.status !== 0) throw new Error('Could not restrict local Worker secret permissions.');
+    }
+    writeFileSync(descriptor, Object.entries(keys).map(([name, value]) => `${name}=${JSON.stringify(value)}`).join('\n') + '\n');
+    secured = true;
+  } finally {
+    closeSync(descriptor);
+    if (!secured) unlinkSync(target);
+  }
   console.log('Created ignored local Worker secrets without displaying their values.');
 } else {
   const result = spawnSync(process.execPath, [resolve(workerRoot, 'node_modules/wrangler/bin/wrangler.js'), 'secret', 'bulk'], {
