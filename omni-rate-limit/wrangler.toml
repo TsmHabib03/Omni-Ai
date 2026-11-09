@@ -1,0 +1,31 @@
+name = "omni-rate-limit"
+main = "src/index.js"
+compatibility_date = "2026-11-09"
+
+[vars]
+SHOW_CARBON_WARNING = false
+# GOOGLE_CLIENT_ID is supplied as a Cloudflare Secret by the deploy script.
+ALLOWED_ORIGINS = "https://omni-rate-limit.jaudianhabib879.workers.dev"
+LIMIT = "5"
+WINDOW_SECONDS = "60"
+GROQ_MODEL = "openai/gpt-oss-20b"
+PIX_ROUTER_IMAGE_MODEL = "midjourney/midjourney-v7"
+
+# KV is optional settings/cache storage; strict counters use ACCOUNT_LIMITER.
+[[kv_namespaces]]
+binding = "RATE_LIMITS"
+id = "c5f0764a102a4df0bf7ad7a2c24dd842"
+preview_id = "9c1bd86ffe2044bdb3a49ab102efb064"
+
+[assets]
+directory = "../dist"
+binding = "ASSETS"
+run_worker_first = true
+
+[[durable_objects.bindings]]
+name = "ACCOUNT_LIMITER"
+class_name = "AccountLimiter"
+
+[exports.AccountLimiter]
+type = "durable-object"
+storage = "sqlite"

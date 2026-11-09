@@ -1,0 +1,545 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-09T13:16:15.830Z",
+  "title": "Design System: Omni AI",
+  "extensions": {
+    "colorMeta": {
+      "night-canvas": {
+        "role": "neutral",
+        "displayName": "Night Canvas",
+        "tonalRamp": [
+          "oklch(15.00% 0.0115 266.85)",
+          "oklch(26.43% 0.0115 266.85)",
+          "oklch(37.86% 0.0115 266.85)",
+          "oklch(49.29% 0.0115 266.85)",
+          "oklch(60.71% 0.0115 266.85)",
+          "oklch(72.14% 0.0115 266.85)",
+          "oklch(83.57% 0.0115 266.85)",
+          "oklch(95.00% 0.0115 266.85)"
+        ]
+      },
+      "dark-surface": {
+        "role": "neutral",
+        "displayName": "Dark Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0186 274.76)",
+          "oklch(26.43% 0.0186 274.76)",
+          "oklch(37.86% 0.0186 274.76)",
+          "oklch(49.29% 0.0186 274.76)",
+          "oklch(60.71% 0.0186 274.76)",
+          "oklch(72.14% 0.0186 274.76)",
+          "oklch(83.57% 0.0186 274.76)",
+          "oklch(95.00% 0.0186 274.76)"
+        ]
+      },
+      "dark-border": {
+        "role": "neutral",
+        "displayName": "Dark Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.0470 275.87)",
+          "oklch(26.43% 0.0470 275.87)",
+          "oklch(37.86% 0.0470 275.87)",
+          "oklch(49.29% 0.0470 275.87)",
+          "oklch(60.71% 0.0470 275.87)",
+          "oklch(72.14% 0.0470 275.87)",
+          "oklch(83.57% 0.0470 275.87)",
+          "oklch(95.00% 0.0470 275.87)"
+        ]
+      },
+      "lavender-focus": {
+        "role": "primary",
+        "displayName": "Lavender Focus",
+        "tonalRamp": [
+          "oklch(15.00% 0.0833 299.65)",
+          "oklch(26.43% 0.0833 299.65)",
+          "oklch(37.86% 0.0833 299.65)",
+          "oklch(49.29% 0.0833 299.65)",
+          "oklch(60.71% 0.0833 299.65)",
+          "oklch(72.14% 0.0833 299.65)",
+          "oklch(83.57% 0.0833 299.65)",
+          "oklch(95.00% 0.0833 299.65)"
+        ]
+      },
+      "lavender-action": {
+        "role": "primary",
+        "displayName": "Lavender Action",
+        "tonalRamp": [
+          "oklch(15.00% 0.0404 304.91)",
+          "oklch(26.43% 0.0404 304.91)",
+          "oklch(37.86% 0.0404 304.91)",
+          "oklch(49.29% 0.0404 304.91)",
+          "oklch(60.71% 0.0404 304.91)",
+          "oklch(72.14% 0.0404 304.91)",
+          "oklch(83.57% 0.0404 304.91)",
+          "oklch(95.00% 0.0404 304.91)"
+        ]
+      },
+      "lavender-nav-active": {
+        "role": "primary",
+        "displayName": "Lavender Nav Active",
+        "tonalRamp": [
+          "oklch(15.00% 0.0495 303.99)",
+          "oklch(26.43% 0.0495 303.99)",
+          "oklch(37.86% 0.0495 303.99)",
+          "oklch(49.29% 0.0495 303.99)",
+          "oklch(60.71% 0.0495 303.99)",
+          "oklch(72.14% 0.0495 303.99)",
+          "oklch(83.57% 0.0495 303.99)",
+          "oklch(95.00% 0.0495 303.99)"
+        ]
+      },
+      "lavender-nav-muted": {
+        "role": "primary",
+        "displayName": "Lavender Nav Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.0412 300.44)",
+          "oklch(26.43% 0.0412 300.44)",
+          "oklch(37.86% 0.0412 300.44)",
+          "oklch(49.29% 0.0412 300.44)",
+          "oklch(60.71% 0.0412 300.44)",
+          "oklch(72.14% 0.0412 300.44)",
+          "oklch(83.57% 0.0412 300.44)",
+          "oklch(95.00% 0.0412 300.44)"
+        ]
+      },
+      "dark-body": {
+        "role": "neutral",
+        "displayName": "Dark Body",
+        "tonalRamp": [
+          "oklch(15.00% 0.0241 299.29)",
+          "oklch(26.43% 0.0241 299.29)",
+          "oklch(37.86% 0.0241 299.29)",
+          "oklch(49.29% 0.0241 299.29)",
+          "oklch(60.71% 0.0241 299.29)",
+          "oklch(72.14% 0.0241 299.29)",
+          "oklch(83.57% 0.0241 299.29)",
+          "oklch(95.00% 0.0241 299.29)"
+        ]
+      },
+      "dark-assistant": {
+        "role": "neutral",
+        "displayName": "Dark Assistant",
+        "tonalRamp": [
+          "oklch(15.00% 0.0298 296.62)",
+          "oklch(26.43% 0.0298 296.62)",
+          "oklch(37.86% 0.0298 296.62)",
+          "oklch(49.29% 0.0298 296.62)",
+          "oklch(60.71% 0.0298 296.62)",
+          "oklch(72.14% 0.0298 296.62)",
+          "oklch(83.57% 0.0298 296.62)",
+          "oklch(95.00% 0.0298 296.62)"
+        ]
+      },
+      "login-title": {
+        "role": "neutral",
+        "displayName": "Login Title",
+        "tonalRamp": [
+          "oklch(15.00% 0.0379 294.98)",
+          "oklch(26.43% 0.0379 294.98)",
+          "oklch(37.86% 0.0379 294.98)",
+          "oklch(49.29% 0.0379 294.98)",
+          "oklch(60.71% 0.0379 294.98)",
+          "oklch(72.14% 0.0379 294.98)",
+          "oklch(83.57% 0.0379 294.98)",
+          "oklch(95.00% 0.0379 294.98)"
+        ]
+      },
+      "login-body": {
+        "role": "neutral",
+        "displayName": "Login Body",
+        "tonalRamp": [
+          "oklch(15.00% 0.0363 295.06)",
+          "oklch(26.43% 0.0363 295.06)",
+          "oklch(37.86% 0.0363 295.06)",
+          "oklch(49.29% 0.0363 295.06)",
+          "oklch(60.71% 0.0363 295.06)",
+          "oklch(72.14% 0.0363 295.06)",
+          "oklch(83.57% 0.0363 295.06)",
+          "oklch(95.00% 0.0363 295.06)"
+        ]
+      },
+      "login-caption": {
+        "role": "neutral",
+        "displayName": "Login Caption",
+        "tonalRamp": [
+          "oklch(15.00% 0.0363 295.06)",
+          "oklch(26.43% 0.0363 295.06)",
+          "oklch(37.86% 0.0363 295.06)",
+          "oklch(49.29% 0.0363 295.06)",
+          "oklch(60.71% 0.0363 295.06)",
+          "oklch(72.14% 0.0363 295.06)",
+          "oklch(83.57% 0.0363 295.06)",
+          "oklch(95.00% 0.0363 295.06)"
+        ]
+      },
+      "login-footer": {
+        "role": "neutral",
+        "displayName": "Login Footer",
+        "tonalRamp": [
+          "oklch(15.00% 0.0363 295.06)",
+          "oklch(26.43% 0.0363 295.06)",
+          "oklch(37.86% 0.0363 295.06)",
+          "oklch(49.29% 0.0363 295.06)",
+          "oklch(60.71% 0.0363 295.06)",
+          "oklch(72.14% 0.0363 295.06)",
+          "oklch(83.57% 0.0363 295.06)",
+          "oklch(95.00% 0.0363 295.06)"
+        ]
+      },
+      "login-link": {
+        "role": "neutral",
+        "displayName": "Login Link",
+        "tonalRamp": [
+          "oklch(15.00% 0.0732 309.34)",
+          "oklch(26.43% 0.0732 309.34)",
+          "oklch(37.86% 0.0732 309.34)",
+          "oklch(49.29% 0.0732 309.34)",
+          "oklch(60.71% 0.0732 309.34)",
+          "oklch(72.14% 0.0732 309.34)",
+          "oklch(83.57% 0.0732 309.34)",
+          "oklch(95.00% 0.0732 309.34)"
+        ]
+      },
+      "login-error": {
+        "role": "semantic",
+        "displayName": "Login Error",
+        "tonalRamp": [
+          "oklch(15.00% 0.1316 4.90)",
+          "oklch(26.43% 0.1316 4.90)",
+          "oklch(37.86% 0.1316 4.90)",
+          "oklch(49.29% 0.1316 4.90)",
+          "oklch(60.71% 0.1316 4.90)",
+          "oklch(72.14% 0.1316 4.90)",
+          "oklch(83.57% 0.1316 4.90)",
+          "oklch(95.00% 0.1316 4.90)"
+        ]
+      },
+      "avatar-surface": {
+        "role": "neutral",
+        "displayName": "Avatar Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0502 301.79)",
+          "oklch(26.43% 0.0502 301.79)",
+          "oklch(37.86% 0.0502 301.79)",
+          "oklch(49.29% 0.0502 301.79)",
+          "oklch(60.71% 0.0502 301.79)",
+          "oklch(72.14% 0.0502 301.79)",
+          "oklch(83.57% 0.0502 301.79)",
+          "oklch(95.00% 0.0502 301.79)"
+        ]
+      },
+      "avatar-ink": {
+        "role": "neutral",
+        "displayName": "Avatar Ink",
+        "tonalRamp": [
+          "oklch(15.00% 0.0420 307.21)",
+          "oklch(26.43% 0.0420 307.21)",
+          "oklch(37.86% 0.0420 307.21)",
+          "oklch(49.29% 0.0420 307.21)",
+          "oklch(60.71% 0.0420 307.21)",
+          "oklch(72.14% 0.0420 307.21)",
+          "oklch(83.57% 0.0420 307.21)",
+          "oklch(95.00% 0.0420 307.21)"
+        ]
+      },
+      "pearl-canvas": {
+        "role": "neutral",
+        "displayName": "Pearl Canvas",
+        "tonalRamp": [
+          "oklch(15.00% 0.0067 295.45)",
+          "oklch(26.43% 0.0067 295.45)",
+          "oklch(37.86% 0.0067 295.45)",
+          "oklch(49.29% 0.0067 295.45)",
+          "oklch(60.71% 0.0067 295.45)",
+          "oklch(72.14% 0.0067 295.45)",
+          "oklch(83.57% 0.0067 295.45)",
+          "oklch(95.00% 0.0067 295.45)"
+        ]
+      },
+      "pearl-surface": {
+        "role": "neutral",
+        "displayName": "Pearl Surface",
+        "tonalRamp": [
+          "oklch(15.00% 0.0000 89.88)",
+          "oklch(26.43% 0.0000 89.88)",
+          "oklch(37.86% 0.0000 89.88)",
+          "oklch(49.29% 0.0000 89.88)",
+          "oklch(60.71% 0.0000 89.88)",
+          "oklch(72.14% 0.0000 89.88)",
+          "oklch(83.57% 0.0000 89.88)",
+          "oklch(95.00% 0.0000 89.88)"
+        ]
+      },
+      "pearl-border": {
+        "role": "neutral",
+        "displayName": "Pearl Border",
+        "tonalRamp": [
+          "oklch(15.00% 0.0670 300.69)",
+          "oklch(26.43% 0.0670 300.69)",
+          "oklch(37.86% 0.0670 300.69)",
+          "oklch(49.29% 0.0670 300.69)",
+          "oklch(60.71% 0.0670 300.69)",
+          "oklch(72.14% 0.0670 300.69)",
+          "oklch(83.57% 0.0670 300.69)",
+          "oklch(95.00% 0.0670 300.69)"
+        ]
+      },
+      "pearl-title": {
+        "role": "neutral",
+        "displayName": "Pearl Title",
+        "tonalRamp": [
+          "oklch(15.00% 0.0379 294.98)",
+          "oklch(26.43% 0.0379 294.98)",
+          "oklch(37.86% 0.0379 294.98)",
+          "oklch(49.29% 0.0379 294.98)",
+          "oklch(60.71% 0.0379 294.98)",
+          "oklch(72.14% 0.0379 294.98)",
+          "oklch(83.57% 0.0379 294.98)",
+          "oklch(95.00% 0.0379 294.98)"
+        ]
+      },
+      "pearl-body": {
+        "role": "neutral",
+        "displayName": "Pearl Body",
+        "tonalRamp": [
+          "oklch(15.00% 0.0348 303.06)",
+          "oklch(26.43% 0.0348 303.06)",
+          "oklch(37.86% 0.0348 303.06)",
+          "oklch(49.29% 0.0348 303.06)",
+          "oklch(60.71% 0.0348 303.06)",
+          "oklch(72.14% 0.0348 303.06)",
+          "oklch(83.57% 0.0348 303.06)",
+          "oklch(95.00% 0.0348 303.06)"
+        ]
+      },
+      "pearl-muted": {
+        "role": "neutral",
+        "displayName": "Pearl Muted",
+        "tonalRamp": [
+          "oklch(15.00% 0.0363 295.06)",
+          "oklch(26.43% 0.0363 295.06)",
+          "oklch(37.86% 0.0363 295.06)",
+          "oklch(49.29% 0.0363 295.06)",
+          "oklch(60.71% 0.0363 295.06)",
+          "oklch(72.14% 0.0363 295.06)",
+          "oklch(83.57% 0.0363 295.06)",
+          "oklch(95.00% 0.0363 295.06)"
+        ]
+      },
+      "pearl-action": {
+        "role": "neutral",
+        "displayName": "Pearl Action",
+        "tonalRamp": [
+          "oklch(15.00% 0.0732 309.34)",
+          "oklch(26.43% 0.0732 309.34)",
+          "oklch(37.86% 0.0732 309.34)",
+          "oklch(49.29% 0.0732 309.34)",
+          "oklch(60.71% 0.0732 309.34)",
+          "oklch(72.14% 0.0732 309.34)",
+          "oklch(83.57% 0.0732 309.34)",
+          "oklch(95.00% 0.0732 309.34)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "login-display": {
+        "displayName": "Login title",
+        "purpose": "The signed-out Omni AI entrance."
+      },
+      "chat": {
+        "displayName": "Conversation",
+        "purpose": "Readable text in the dominant chat feed."
+      },
+      "code": {
+        "displayName": "Code",
+        "purpose": "Source code and numbered code lines."
+      }
+    },
+    "shadows": [
+      {
+        "name": "glass-dark",
+        "value": "0 8px 32px #00000018,inset 0 1px 0 #ffffff02",
+        "purpose": "Incumbent shallow translucent panels."
+      },
+      {
+        "name": "glass-pearl",
+        "value": "0 8px 32px #3d2f5810,inset 0 1px 0 #ffffffcc",
+        "purpose": "Light workspace panels."
+      },
+      {
+        "name": "chat-dark",
+        "value": "0 15px 50px #00000024,inset 0 1px 0 #d7c9ed04",
+        "purpose": "Dominant conversation surface."
+      },
+      {
+        "name": "composer",
+        "value": "0 6px 30px #0002",
+        "purpose": "Fixed composer."
+      },
+      {
+        "name": "navigation",
+        "value": "0 12px 40px #0005,inset 0 1px 0 #ffffff04",
+        "purpose": "Bottom dock separation."
+      },
+      {
+        "name": "login",
+        "value": "0 24px 80px #5e477517",
+        "purpose": "Centered login panel."
+      },
+      {
+        "name": "modal",
+        "value": "0 24px 90px #0007",
+        "purpose": "Protected account and settings dialogs."
+      }
+    ],
+    "motion": [
+      {
+        "name": "control-transition",
+        "value": "200ms",
+        "purpose": "Background, stroke, and color changes on buttons."
+      },
+      {
+        "name": "login-arrival",
+        "value": "850ms cubic-bezier(.16,1,.3,1)",
+        "purpose": "One orb arrival from blur 5px and translateY 8px."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "prefers-reduced-motion: reduce",
+        "purpose": "Disable animation and transitions; use automatic scrolling."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "wide-desktop",
+        "value": "1600px"
+      },
+      {
+        "name": "hide-left-rail",
+        "value": "1190px"
+      },
+      {
+        "name": "hide-right-rail",
+        "value": "900px"
+      },
+      {
+        "name": "mobile",
+        "value": "600px"
+      },
+      {
+        "name": "compact-login-height",
+        "value": "650px (height)"
+      },
+      {
+        "name": "landscape-height",
+        "value": "590px (height)"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Secondary action · dark",
+      "kind": "button",
+      "refersTo": "button-secondary-dark",
+      "description": "Quiet action in a dark account dialog.",
+      "html": "<button class=\"ds-secondary\" type=\"button\">Sign out</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 16px;border:1px solid #b7aad31c;background:#b7aad306;border-radius:12px;font:400 15px 'DM Sans',system-ui,sans-serif;color:#bab8cb;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s}.ds-secondary:hover{background:#b7aad312;border-color:#b7aad338;color:#e0d9ef}.ds-secondary:active{transform:translateY(1px)}.ds-secondary:focus-visible,.ds-generate:focus-visible,.ds-avatar:focus-visible,.ds-nav button:focus-visible,.ds-mode:focus-visible{outline:2px solid #b3a0d9;outline-offset:4px}"
+    },
+    {
+      "name": "Secondary action · pearl",
+      "kind": "button",
+      "refersTo": "button-secondary-light",
+      "description": "The same action in the light workspace appearance.",
+      "html": "<button class=\"ds-secondary ds-secondary-light\" type=\"button\">New chat</button>",
+      "css": ".ds-secondary{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:44px;padding:10px 16px;border:1px solid #b7aad31c;background:#b7aad306;border-radius:12px;font:400 15px 'DM Sans',system-ui,sans-serif;color:#bab8cb;cursor:pointer;transition:background .2s,border-color .2s,color .2s,transform .2s}.ds-secondary:hover{background:#b7aad312;border-color:#b7aad338;color:#e0d9ef}.ds-secondary:active{transform:translateY(1px)}.ds-secondary:focus-visible,.ds-generate:focus-visible,.ds-avatar:focus-visible,.ds-nav button:focus-visible,.ds-mode:focus-visible{outline:2px solid #b3a0d9;outline-offset:4px}.ds-secondary-light{background:#ffffff70;border-color:#80609529;color:#69517c}.ds-secondary-light:hover{background:#e9e0f37a;border-color:#8060954a;color:#52366d}"
+    },
+    {
+      "name": "Generate",
+      "kind": "button",
+      "refersTo": "button-generate-dark",
+      "description": "Primary generation action; disable while admission or generation is pending.",
+      "html": "<button class=\"ds-generate\" type=\"button\">Generate <svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\"><path d=\"M7 17 17 7M7 7h10v10\"/></svg></button>",
+      "css": ".ds-generate{display:inline-flex;align-items:center;gap:9px;min-height:46px;padding:11px 16px;border:1px solid #bdabd33a;border-radius:12px;background:linear-gradient(125deg,#574568c9,#38374ed9);color:#d5c9e5;font:500 16px 'DM Sans',system-ui,sans-serif;cursor:pointer;transition:background .2s,transform .2s}.ds-generate:hover:not(:disabled){background:linear-gradient(125deg,#67517bc9,#44415ed9);border-color:#cbb5e163}.ds-generate:active{transform:translateY(1px)}.ds-generate:disabled{opacity:.6;cursor:default}.ds-secondary:focus-visible,.ds-generate:focus-visible,.ds-avatar:focus-visible,.ds-nav button:focus-visible,.ds-mode:focus-visible{outline:2px solid #b3a0d9;outline-offset:4px}"
+    },
+    {
+      "name": "Account avatar",
+      "kind": "button",
+      "refersTo": "button-avatar",
+      "description": "Circular fallback for the bottom-navigation account photo.",
+      "html": "<button class=\"ds-avatar\" type=\"button\" aria-label=\"Manage account\" aria-haspopup=\"dialog\"><span><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"8\" r=\"3.5\"/><path d=\"M4.5 21v-2a7.5 7.5 0 0 1 15 0v2\"/></svg></span></button>",
+      "css": ".ds-avatar{display:grid;place-items:center;width:44px;height:44px;padding:4px;border:0;border-radius:50%;background:transparent;cursor:pointer;transition:background .2s,transform .2s}.ds-avatar span{display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:#3b304c;color:#e0d2ef}.ds-avatar:hover{background:#b7aad31c}.ds-avatar:hover span{filter:brightness(1.12)}.ds-avatar:active{transform:translateY(1px)}.ds-secondary:focus-visible,.ds-generate:focus-visible,.ds-avatar:focus-visible,.ds-nav button:focus-visible,.ds-mode:focus-visible{outline:2px solid #b3a0d9;outline-offset:4px}"
+    },
+    {
+      "name": "Generation mode",
+      "kind": "input",
+      "refersTo": "mode-field",
+      "description": "Compact mode selector beside the composer.",
+      "html": "<label class=\"ds-mode-label\">Generation mode <select class=\"ds-mode\" aria-label=\"Generation mode\"><option>Text</option><option>Image</option></select></label>",
+      "css": ".ds-mode-label{display:flex;align-items:center;gap:10px;font:400 13px 'DM Sans',system-ui,sans-serif;color:#b3a5c6}.ds-mode{min-height:36px;font:400 13px 'DM Sans',system-ui,sans-serif;background:#b7aad306;border:1px solid #b7aad31c;border-radius:8px;padding:5px 26px 5px 10px;color:#b3a5c6;cursor:pointer}.ds-mode option{background:#16131e;color:#c9bfd8}.ds-mode:hover{border-color:#b7aad351}.ds-secondary:focus-visible,.ds-generate:focus-visible,.ds-avatar:focus-visible,.ds-nav button:focus-visible,.ds-mode:focus-visible{outline:2px solid #b3a0d9;outline-offset:4px}"
+    },
+    {
+      "name": "Bottom navigation",
+      "kind": "nav",
+      "refersTo": "nav-item",
+      "description": "Compact active-tab treatment in the fixed bottom dock.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Workspace\"><button type=\"button\" aria-current=\"page\">Chat</button><button type=\"button\">Create</button><button type=\"button\">Library</button><button type=\"button\">History</button><button class=\"ds-nav-profile\" type=\"button\" aria-label=\"Manage account\"><svg width=\"22\" height=\"22\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"><circle cx=\"12\" cy=\"8\" r=\"3.5\"/><path d=\"M4.5 21v-2a7.5 7.5 0 0 1 15 0v2\"/></svg></button></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:5px;width:max-content;max-width:100%;padding:6px 9px;border:1px solid #b7aad318;border-radius:18px;background:#11131de8;backdrop-filter:blur(24px);box-shadow:0 12px 40px #0005,inset 0 1px 0 #ffffff04}.ds-nav button{min-height:48px;padding:0 21px;border:1px solid transparent;border-radius:12px;background:none;font:400 15px 'DM Sans',system-ui,sans-serif;color:#8d849f;cursor:pointer;transition:background .2s,transform .2s}.ds-nav button[aria-current]{background:linear-gradient(115deg,#8c73ad18,#908daa0a);border-color:#b7aad323;color:#c8badc}.ds-nav button:hover{background:#b7aad308;color:#e0d9ef}.ds-nav button:active{transform:translateY(1px)}.ds-nav .ds-nav-profile{display:grid;place-items:center;width:44px;min-height:44px;padding:4px;border-radius:50%;background:#3b304c;color:#e0d2ef}@media(max-width:600px){.ds-nav{width:100%;padding:5px;gap:3px;border-radius:15px}.ds-nav button{flex:1;padding:4px;font-size:11px;min-height:52px}.ds-nav .ds-nav-profile{flex:none}}.ds-secondary:focus-visible,.ds-generate:focus-visible,.ds-avatar:focus-visible,.ds-nav button:focus-visible,.ds-mode:focus-visible{outline:2px solid #b3a0d9;outline-offset:4px}"
+    },
+    {
+      "name": "Context tag",
+      "kind": "chip",
+      "refersTo": "context-tag",
+      "description": "Artifact metadata, rather than an interactive filter.",
+      "html": "<span class=\"ds-tag\">JavaScript</span>",
+      "css": ".ds-tag{display:inline-block;font:400 10px 'DM Sans',system-ui,sans-serif;color:#92859f;border:1px solid #bac1e212;border-radius:5px;padding:3px 6px}"
+    },
+    {
+      "name": "Conversation surface",
+      "kind": "card",
+      "description": "Flexible dark glass panel; preview uses honest sample text.",
+      "html": "<section class=\"ds-chat\"><h2>Your conversation</h2><p>Sample conversation content</p></section>",
+      "css": ".ds-chat{max-width:540px;border:1px solid #b9acd31a;border-radius:20px;background:linear-gradient(120deg,#b4a3d704,transparent),#10121bcc;backdrop-filter:blur(24px);box-shadow:0 15px 50px #00000024,inset 0 1px 0 #d7c9ed04;color:#c9c4d5;font-family:'DM Sans',system-ui,sans-serif}.ds-chat h2{margin:0;padding:15px 22px;border-bottom:1px solid #bac1e212;font-size:19px;font-weight:500;color:#cdcadb}.ds-chat p{padding:22px 28px;font-size:20px;line-height:1.6}@media(max-width:600px){.ds-chat{border-radius:16px}.ds-chat h2{padding:10px 12px;font-size:17px}.ds-chat p{padding:15px 13px;font-size:18px}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Omni’s orbital workspace",
+    "overview": "This document records the implemented identity, rather than proposing a new brand. The existing iridescent orb supplies the visual signature. Manrope headings and DM Sans copy sit on translucent, softly shaded surfaces, with muted lavender linking controls to the logo.\n\nThe workspace has both dark and pearl appearances. Login always uses white pearl glass, matching the default workspace appearance; the workspace preserves the user's appearance choice. The centered login composition is specific to that entrance and is recorded in the surface brief, rather than imposed on other screens.",
+    "keyCharacteristics": [
+      "The incumbent iridescent orb and authored orbital SVG icons.",
+      "Near-black glass and pearl glass as two workspace appearances.",
+      "Lavender emphasis, tinted supporting text, and visible focus.",
+      "A dominant conversation with a fixed composer and bottom navigation."
+    ],
+    "rules": [
+      {
+        "name": "The Appearance Rule",
+        "body": "Login always uses white pearl glass, including after signing out of a dark workspace. Workspace surfaces, text, borders, and controls switch together when the user changes appearance; that preference survives sign-out.",
+        "section": "colors"
+      },
+      {
+        "name": "The Icon Rule",
+        "body": "Draw interface icons as SVG with a consistent stroke. Keep real Unicode punctuation as text; do not substitute glyphs for navigation or decorative star icons.",
+        "section": "typography"
+      },
+      {
+        "name": "The Dock Rule",
+        "body": "Reserve the measured fixed dock height, including safe-area padding, before allocating the conversation's height.",
+        "section": "layout"
+      }
+    ],
+    "dos": [
+      "**Do** preserve the incumbent orb, Manrope headings, and DM Sans body copy.",
+      "**Do** switch the workspace's surface, text, border, and control colors together.",
+      "**Do** keep login in white pearl glass and keep the account avatar in bottom navigation.",
+      "**Do** reserve the measured dock and safe area before sizing the conversation.",
+      "**Do** use authored SVG icons, visible keyboard focus, and reduced-motion support.",
+      "**Do** preserve the proportions of profile photos, logos, and generated images."
+    ],
+    "donts": [
+      "**Don't** expose the workspace while signed out or offer an unrequested login provider.",
+      "**Don't** substitute corrupted text glyphs for icons or real Unicode punctuation.",
+      "**Don't** promote the centered login composition into a rule for every screen.",
+      "**Don't** fabricate policy destinations, brand claims, or asset provenance."
+    ]
+  }
+}

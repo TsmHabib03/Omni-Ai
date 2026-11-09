@@ -1,0 +1,16 @@
+{
+  "manifest_version": 3,
+  "name": "Footprint — Prompt guard for Omni AI",
+  "version": "1.0.0",
+  "description": "Pause Omni AI generation to review estimated water and carbon usage when its host enables the warning.",
+  "action": { "default_title": "Footprint Prompt guard", "default_popup": "popup.html" },
+  "content_scripts": [{
+    "matches": [
+      "https://omni-rate-limit.jaudianhabib879.workers.dev/*",
+      "http://127.0.0.1/*",
+      "http://localhost/*"
+    ],
+    "js": ["content.js"],
+    "run_at": "document_start"
+  }]
+}

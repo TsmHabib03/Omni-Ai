@@ -1,0 +1,23 @@
+{
+  "name": "omni-rate-limit",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "deploy": "node scripts/deploy.mjs",
+    "dev": "wrangler dev --port 8788",
+    "start": "wrangler dev --port 8788",
+    "test": "node --test test/gateway.test.js && vitest run",
+		"check": "wrangler deploy --dry-run",
+		"secrets:sync": "node scripts/sync-secrets.mjs",
+		"secrets:local": "node scripts/sync-secrets.mjs --local"
+  },
+  "devDependencies": {
+    "@cloudflare/vitest-plugin": "^1.4.3",
+    "vitest": "~5.0.3",
+    "wrangler": "^4.158.0"
+  },
+  "dependencies": {
+    "jose": "^6.2.16"
+  }
+}
