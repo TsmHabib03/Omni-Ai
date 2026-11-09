@@ -13,7 +13,7 @@
     "build:extension": "node scripts/build-extension.mjs",
     "test:worker": "npm --prefix omni-rate-limit test",
     "dev:worker": "npm --prefix omni-rate-limit run dev",
-    "deploy:cloudflare": "npm --prefix omni-rate-limit run deploy",
+    "deploy:cloudflare": "node omni-rate-limit/scripts/deploy.mjs",
     "test:layout": "playwright test cinematic-layout",
     "test:security-browser": "playwright test --config playwright.security.config.js",
     "audit:secrets": "node scripts/security-scan.mjs",

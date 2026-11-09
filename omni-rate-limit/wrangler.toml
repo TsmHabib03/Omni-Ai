@@ -1,11 +1,11 @@
-name = "omni-rate-limit"
+name = "omni-ai"
 main = "src/index.js"
 compatibility_date = "2026-11-09"
 
 [vars]
 SHOW_CARBON_WARNING = false
 # GOOGLE_CLIENT_ID is supplied as a Cloudflare Secret by the deploy script.
-ALLOWED_ORIGINS = "https://omni-rate-limit.jaudianhabib879.workers.dev"
+ALLOWED_ORIGINS = "https://omni-ai.jaudianhabib879.workers.dev"
 LIMIT = "5"
 WINDOW_SECONDS = "60"
 GROQ_MODEL = "openai/gpt-oss-20b"

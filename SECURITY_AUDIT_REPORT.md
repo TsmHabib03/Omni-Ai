@@ -2,7 +2,7 @@
 
 Date: November 9, 2026. Scope: application source, frontend/build configuration, local Node API, Cloudflare Worker, Durable Object limiter, secret/deployment helpers, and Git ignore rules.
 
-**Result:** requested application hardening and the white login are deployed in version `1c1f58f0-c544-4f96-9ac7-1d0455909048`. Local checks and production asset, header, request rejection, and desktop/mobile GIS rendering checks pass. No provider credentials or actual OAuth client IDs were detected in files eligible for source control. At the time of the security audit, nothing had been staged, committed, or pushed. Google still rejects the deployed origin for the configured client; real sign-in and production generation await the matching Google Console origin setting.
+**Result:** requested application hardening and the white login are deployed in version `6e41ebe7-f3e3-466e-a2b6-26c2741c9687`. Local checks and production asset, header, request rejection, and desktop/mobile GIS rendering checks pass. No provider credentials or actual OAuth client IDs were detected in files eligible for source control. At the time of the security audit, nothing had been staged, committed, or pushed. Google still rejects the deployed origin for the configured client; real sign-in and production generation await the matching Google Console origin setting.
 
 ## Findings and fixes
 
@@ -19,9 +19,11 @@ Date: November 9, 2026. Scope: application source, frontend/build configuration,
 
 Headers include `Content-Security-Policy`, `Strict-Transport-Security`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`, `Permissions-Policy`, `Cross-Origin-Resource-Policy`, and popup-compatible `Cross-Origin-Opener-Policy`.
 
-The production generation CORS allowlist contains only `https://omni-rate-limit.jaudianhabib879.workers.dev`. It permits generation preflight only for POST with Authorization/Content-Type, exposes Retry-After, and grants no CORS access to rejected origins.
+The production generation CORS allowlist contains only `https://omni-ai.jaudianhabib879.workers.dev`. It permits generation preflight only for POST with Authorization/Content-Type, exposes Retry-After, and grants no CORS access to rejected origins.
 
 ## Verification
+
+Rename follow-up: Worker `omni-ai` is deployed at `https://omni-ai.jaudianhabib879.workers.dev` in version `6e41ebe7-f3e3-466e-a2b6-26c2741c9687`. The existing target had no secrets; all three were provisioned together with the app and backend. Remote inspection confirms `secret_text` for each. The new deployment has independent Durable Object counters. New-origin HTTP checks confirm the authenticated assets, eight headers, and configuration presence; missing-token generation returns 401 and old/missing/unrelated origins return 403. Mobile Chromium loads the real white GIS button with no CSP violations or runtime errors. Google still rejects the new origin. The earlier desktop/mobile evidence below predates the rename; full account sign-in and generation remain unverified. The old Worker was not deleted and no rename follow-up commit or push was performed by this task.
 
 - `npm test`: frontend, local API, and authentication checks passed with mocked providers.
 - `npm run test:worker`: 11 gateway/JWT/limiter tests and five actual Worker/Durable Object runtime tests passed. Coverage includes simultaneous admission, rolling-boundary bursts, shared quotas, spoofed/malformed headers, rejected payloads, migration, alarms, storage failures, and secure static responses.
@@ -38,7 +40,9 @@ Automated tests do not use real Google credentials or paid provider calls. Gener
 
 ## Remaining limits and release status
 
-1. The current production deployment is `1c1f58f0-c544-4f96-9ac7-1d0455909048`. Audited hardening and backend OAuth Secret synchronization are complete. Google still rejects the deployed origin: save `https://omni-rate-limit.jaudianhabib879.workers.dev` under Authorized JavaScript origins on the Web client matching private `GOOGLE_CLIENT_ID`, then allow propagation. Real Google sign-in and production text/image generation through the hardened Worker must be verified before claiming generation is fully ready. Configuration-presence checks do not verify provider credentials or credits.
+Deployment-fix publication (November 9, 2026): the user explicitly approved staging, committing, and pushing the `omni-ai` rename and deployment fixes. The approved package uses an explicit Worker configuration path, preserves provider Secrets on ordinary deploys, and documents the separate Cloudflare build/deploy commands and build-only OAuth configuration. The final authenticated deployment dry-run passed with zero source-control or browser credential leaks. A Git-triggered production build and real account sign-in/generation still require verification.
+
+1. The current production deployment is `6e41ebe7-f3e3-466e-a2b6-26c2741c9687`. Audited hardening and backend OAuth Secret synchronization are complete. Google still rejects the deployed origin: save `https://omni-ai.jaudianhabib879.workers.dev` under Authorized JavaScript origins on the Web client matching private `GOOGLE_CLIENT_ID`, then allow propagation. Real Google sign-in and production text/image generation through the hardened Worker must be verified before claiming generation is fully ready. Configuration-presence checks do not verify provider credentials or credits.
 2. A Google OAuth client ID is inherently public in the browser. Its actual value is excluded from committed source, but users can inspect it in deployed assets. No Google client secret is required or stored for this flow.
 3. Any provider keys shared previously outside private configuration must be rotated in provider dashboards and synchronized privately. This audit prevents detected repository leakage; it does not revoke already exposed credentials. Rotation has not been performed.
 4. The limiter enforces the per-account rule; multiple valid Google accounts and infrastructure-level denial of service require separate operational controls. CORS is a browser control and cannot authenticate non-browser callers. Body validation does not eliminate natural-language prompt injection; generated text is escaped and the application exposes no privileged model tools.

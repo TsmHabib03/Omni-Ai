@@ -1,10 +1,14 @@
 ﻿# Omni.AI Cloudflare setup
 
-Status on November 9, 2026: the white login screen and audited security hardening are deployed in version `1c1f58f0-c544-4f96-9ac7-1d0455909048`. Production asset, security-header, API rejection, and desktop/mobile browser checks passed. Google still reports that the deployed origin is not allowed for the configured client; real sign-in and production text/image generation remain blocked pending Google Console configuration. See [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md).
+Status on November 9, 2026: the white login screen and audited security hardening are deployed in version `6e41ebe7-f3e3-466e-a2b6-26c2741c9687`. Production asset, security-header, API rejection, and desktop/mobile browser checks passed. Google still reports that the deployed origin is not allowed for the configured client; real sign-in and production text/image generation remain blocked pending Google Console configuration. See [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md).
 
-App: https://omni-rate-limit.jaudianhabib879.workers.dev/app-responsive.html
+App: https://omni-ai.jaudianhabib879.workers.dev/app-responsive.html
 
-Gateway and only permitted production frontend origin: https://omni-rate-limit.jaudianhabib879.workers.dev
+Gateway and only permitted production frontend origin: https://omni-ai.jaudianhabib879.workers.dev
+
+The Cloudflare Worker is now named `omni-ai`; `omni-rate-limit/` remains the source directory used by npm scripts and build settings. The existing `omni-ai` Worker had no secrets, so the renamed deployment provisioned `GOOGLE_CLIENT_ID`, `GROQ_API_KEY`, and `PIX_ROUTER_API_KEY` together from private configuration. Its Durable Object storage is separate from the earlier Worker's counters. The earlier Worker was not deleted.
+
+New-origin verification: the application returns 200 and matches the authenticated build; all eight security headers are present. Health confirms authentication, text, image, and limiter configuration. New-origin generation without a token returns 401; old, missing, and unrelated origins return 403. Actual GIS renders the white button on mobile without CSP violations or runtime errors, but Google still rejects the new origin pending Console configuration. No real account sign-in or generation was performed.
 
 ## Request security and rate policy
 
@@ -22,6 +26,37 @@ KV is already provisioned for optional cache/settings. Atomic quota storage uses
 
 ## Private configuration and deployment
 
+### Cloudflare Workers Builds (GitHub)
+
+The frontend's `npm run build` can succeed while a bare root-level `npx wrangler deploy` fails with `Error parsing file: .../vite.config.js`. The repository has its Worker configuration in `omni-rate-limit/`, so the root command triggers Wrangler's Vite auto-configuration instead of selecting the existing authenticated Worker. The deployment helper now passes an explicit absolute `--config` path to prevent this.
+
+In **Workers & Pages → omni-ai → Settings → Build**, configure:
+
+| Setting | Value |
+| --- | --- |
+| Production branch | `main` |
+| Root directory | Repository root: blank or `/` |
+| Build command | `npm ci --prefix omni-rate-limit` |
+| Deploy command | `npm run deploy:cloudflare` |
+| Build secret | `GOOGLE_CLIENT_ID`, matching the existing Google Web OAuth client |
+
+Cloudflare automatically installs root dependencies from `package-lock.json`. The build command installs the separate Worker lockfile, including its pinned Wrangler and `jose` dependency. The deploy command builds the frontend with authentication enforced and same-origin API requests, runs the credential scan, then publishes the app, Worker, and OAuth configuration together. Keeping the frontend build inside the helper prevents publishing a generic Vite build with authentication configuration missing.
+
+The runtime `GOOGLE_CLIENT_ID` Secret does not populate the build environment. Supply it separately as a build secret; no Google client secret is needed. Keep `GROQ_API_KEY` and `PIX_ROUTER_API_KEY` in the existing runtime Worker Secrets. Ordinary deployments preserve them. Do not add provider keys under `VITE_*`.
+
+Before retrying a Git-triggered build, the selected repository commit must contain the updated `omni-ai` name, production origin, helper, and its credential-scan dependencies. Saving dashboard commands does not upload local changes. Disable non-production branch builds until a separate preview Worker, origins, and secrets are configured.
+
+To validate the same deployment path locally without uploading anything, install the Worker dependencies and run:
+
+```powershell
+npm ci --prefix omni-rate-limit
+npm run deploy:cloudflare -- --dry-run
+```
+
+Verification on November 9, 2026: the root `npm run deploy:cloudflare -- --dry-run` command built both authenticated HTML entries, passed the source/history/browser credential scan with zero leaks, and bundled the `omni-ai` Worker with its assets, KV, and Durable Object bindings. This validates the deployment package without changing production. The Git-triggered build has not been retried. Reading its build settings through the current Cloudflare API credential returned HTTP 403, so dashboard settings must be saved by an account with Workers Builds Configuration permission.
+
+### OAuth and runtime secrets
+
 The Google Web OAuth client is already created. In Google Cloud Console → Credentials, edit the Web application client matching the private `GOOGLE_CLIENT_ID`. Under Authorized JavaScript origins, save the exact production origin above, without a path, query, hash, or trailing slash. Live GIS checks still reject that origin. For Vite development also authorize `http://127.0.0.1:5173` and `http://localhost:5173`. This GIS callback flow requires no Google client secret. If account access remains blocked after fixing the origin, check Google Auth Platform → Audience and permitted test users.
 
 Preserve provider keys in ignored `.env.local` and add `GOOGLE_CLIENT_ID` privately there, or supply it through the process environment. The deploy helper reads this value, enforces authenticated frontend mode, uses same-origin API requests, and publishes the backend client ID with the same Worker version using `wrangler deploy --secrets-file`. The short-lived JSON file is created in ignored `.wrangler` state with a user-only Windows ACL before its contents are written; the helper removes it afterward and redacts the client ID from deployment output. This also replaces the old plain-text binding, which a separate `secret put` rejected. Never put actual values in TOML or documentation. The client ID must be visible in the browser for Google sign-in; storing its backend configuration as a Secret does not make the browser value confidential.
@@ -37,6 +72,8 @@ When deployment is authorized, publish the app and Worker together:
 ```powershell
 npm run deploy:cloudflare
 ```
+
+To provision provider secrets on a new Worker from private `.env.local`, use `npm run deploy:cloudflare -- --sync-provider-secrets`. This opt-in publishes both provider keys alongside the OAuth Secret in the protected temporary secrets file; ordinary deployments preserve remote provider secrets. The renamed Worker's initial provisioning is complete.
 
 Remote inspection after deployment confirms `GOOGLE_CLIENT_ID`, `GROQ_API_KEY`, and `PIX_ROUTER_API_KEY` are all `secret_text` bindings. Existing provider secrets were preserved and temporary deployment configuration was removed. To sync rotated provider keys from the ignored root file when authorized:
 
@@ -84,4 +121,5 @@ Automated checks mock Google sign-in/provider traffic and spend no credits. The 
 - [Cloudflare KV consistency](https://developers.cloudflare.com/kv/concepts/how-kv-works/)
 - [Cloudflare Durable Objects](https://developers.cloudflare.com/durable-objects/)
 - [Cloudflare Worker secrets](https://developers.cloudflare.com/workers/configuration/secrets/)
+- [Cloudflare Workers Builds configuration](https://developers.cloudflare.com/workers/ci-cd/builds/configuration/)
 - [Google ID token verification](https://developers.google.com/identity/gsi/web/guides/verify-google-id-token)

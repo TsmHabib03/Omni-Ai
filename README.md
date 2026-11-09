@@ -14,9 +14,13 @@ Open `http://127.0.0.1:5173/app-responsive.html` during development. `app-respon
 
 ## Cloudflare deployment and Google Sign-In
 
-The app and authenticated generation gateway are deployed together at **https://omni-rate-limit.jaudianhabib879.workers.dev/app-responsive.html**. Both provider keys are Cloudflare Worker secrets. The audited implementation requires a verified Google ID token and enforces five generation attempts per account in a rolling 60 seconds, shared across text and images. Durable Objects enforce atomic admission; KV is provisioned for optional cache/settings.
+The Cloudflare Worker is named **omni-ai**. Its source folder remains `omni-rate-limit/`. This repository includes the renamed Worker configuration and deployment helper; Git-triggered deployments also require the dashboard settings below.
 
-**The white login screen and security hardening are deployed** in version `1c1f58f0-c544-4f96-9ac7-1d0455909048` on November 9, 2026. Production configuration, asset/header, unauthorized-request, and desktop/mobile rendering checks passed. Google still rejects the deployed origin for the configured client, so real sign-in and text/image generation await the exact Google Console origin setting below. The client ID is configured in ignored `.env.local` or the process environment; deployment builds it into the authenticated frontend and publishes the backend value as a Cloudflare Secret with the same Worker version. An OAuth client ID is public browser configuration. See [CLOUDFLARE_PLAN.md](CLOUDFLARE_PLAN.md) for setup and [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md) for findings and verification limits.
+For **Cloudflare Workers Builds**, open **omni-ai → Settings → Build** and use the repository root as the root directory (leave it blank, or select `/`). Cloudflare installs the root dependencies automatically. Set the build command to `npm ci --prefix omni-rate-limit` and the deploy command to `npm run deploy:cloudflare`. Add `GOOGLE_CLIENT_ID` as a **build secret** using the existing OAuth client's value; a runtime Worker Secret is not automatically available to the build. The deploy helper builds the authenticated frontend, scans it for credentials, and explicitly selects `omni-rate-limit/wrangler.toml` before uploading the Worker and assets. It preserves the existing provider Secrets. Do not use bare `npx wrangler deploy` at the root: without a root Worker configuration, Wrangler attempts to auto-configure Vite instead of deploying the authenticated gateway. See [the complete build settings](CLOUDFLARE_PLAN.md#cloudflare-workers-builds-github).
+
+The app and authenticated generation gateway are deployed together at **https://omni-ai.jaudianhabib879.workers.dev/app-responsive.html**. Both provider keys are Cloudflare Worker secrets. The audited implementation requires a verified Google ID token and enforces five generation attempts per account in a rolling 60 seconds, shared across text and images. Durable Objects enforce atomic admission; KV is provisioned for optional cache/settings.
+
+**The white login screen and security hardening are deployed** in version `6e41ebe7-f3e3-466e-a2b6-26c2741c9687` on November 9, 2026. Production configuration, asset/header, unauthorized-request, and desktop/mobile rendering checks passed. Google still rejects the deployed origin for the configured client, so real sign-in and text/image generation await the exact Google Console origin setting below. The client ID is configured in ignored `.env.local` or the process environment; deployment builds it into the authenticated frontend and publishes the backend value as a Cloudflare Secret with the same Worker version. An OAuth client ID is public browser configuration. See [CLOUDFLARE_PLAN.md](CLOUDFLARE_PLAN.md) for setup and [SECURITY_AUDIT_REPORT.md](SECURITY_AUDIT_REPORT.md) for findings and verification limits.
 
 ## Add your API keys and run locally
 
@@ -58,7 +62,7 @@ Google validates the page's exact **scheme, hostname, and port**, regardless of 
 ```text
 http://127.0.0.1:5173
 http://localhost:5173
-https://omni-rate-limit.jaudianhabib879.workers.dev
+https://omni-ai.jaudianhabib879.workers.dev
 ```
 
 Keep existing production origins. Origins have no path, query, or hash: do not add `/app-responsive.html` or `#/login`. Authorized redirect URIs are a separate setting and do not fix this Google Identity Services popup flow. Save, allow time for Google's settings to propagate, and reload the app at `http://127.0.0.1:5173`.
